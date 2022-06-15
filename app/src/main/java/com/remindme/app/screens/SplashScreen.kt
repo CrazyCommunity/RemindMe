@@ -46,7 +46,11 @@ fun ShowSplashScreen(navController: NavController) {
     )
     // Customize the delay time
     delay(3000L)
-    navController.navigate("login_screen")
+    navController.navigate("login_screen") {
+      popUpTo("splash_screen") {
+        inclusive = true
+      }
+    }
   }
 
   RemindMeTheme {
