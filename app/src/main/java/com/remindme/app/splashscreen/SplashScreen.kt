@@ -1,5 +1,6 @@
 package com.remindme.app.splashscreen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.remindme.app.R
+import com.remindme.app.navigation.Navigation
 import com.remindme.app.ui.theme.RemindMeTheme
 import com.remindme.app.ui.theme.Teal700
 
@@ -62,10 +64,13 @@ private fun HandleViewState(
   viewModel: SplashViewModel
 ) {
   when (val state = viewModel.viewState.collectAsState(initial = null).value) {
-    null, SplashViewState.Default -> {}
+    null, SplashViewState.Default -> {
+      Log.i("MVI", "HandleViewState: SplashViewState.Default")
+    }
     is SplashViewState.Timeout -> {
-      navController.navigate("login_screen") {
-        popUpTo("splash_screen") {
+      Log.i("MVI", "HandleViewState: SplashViewState.Timeout")
+      navController.navigate(Navigation.Routes.LOGIN) {
+        popUpTo(Navigation.Routes.SPLASH) {
           inclusive = true
         }
       }
