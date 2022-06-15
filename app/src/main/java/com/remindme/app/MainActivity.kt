@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.remindme.app.screens.ShowLoginScreen
-import com.remindme.app.screens.ShowSplashScreen
+import com.remindme.app.loginscreen.ShowLoginScreen
+import com.remindme.app.splashscreen.ShowSplashScreen
 import com.remindme.app.ui.theme.RemindMeTheme
 
 class MainActivity : ComponentActivity() {
