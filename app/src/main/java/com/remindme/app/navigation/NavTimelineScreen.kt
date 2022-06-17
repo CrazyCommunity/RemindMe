@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.remindme.app.ui.theme
+package com.remindme.app.navigation
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import com.remindme.app.screens.ShowTimelineScreen
 
-val Shapes = Shapes(
-  small = RoundedCornerShape(4.dp),
-  medium = RoundedCornerShape(4.dp),
-  large = RoundedCornerShape(0.dp)
-)
+@Composable
+fun NavigateToTimelineScreen(navController: NavController) {
+  ShowTimelineScreen(navController)
+}

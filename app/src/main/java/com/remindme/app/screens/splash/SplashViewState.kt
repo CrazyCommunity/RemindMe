@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.remindme.app.ui.theme
+package com.remindme.app.screens.splash
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
-import androidx.compose.ui.unit.dp
+sealed class SplashViewState {
+  object Default : SplashViewState()
+  object LoadingComplete : SplashViewState()
+}
 
-val Shapes = Shapes(
-  small = RoundedCornerShape(4.dp),
-  medium = RoundedCornerShape(4.dp),
-  large = RoundedCornerShape(0.dp)
-)
+sealed class SplashViewEvent {
+  data class Message(val message: String) : SplashViewEvent()
+}
+
+sealed class SplashViewAction {
+  object Launch : SplashViewAction()
+}
