@@ -30,12 +30,12 @@ abstract class BaseViewModel<ViewState, ViewEvent, ViewAction> : ViewModel() {
   protected abstract val initialViewState: ViewState
   protected abstract fun processAction(action: ViewAction)
 
-  protected var lastViewState: ViewState = initialViewState
+  private var lastViewState: ViewState = initialViewState
 
   private val _viewState = MutableStateFlow(initialViewState)
   val viewState = _viewState.asStateFlow()
 
-  private val _viewEvents = Channel<ViewEvent?>(Channel.BUFFERED)
+  private val _viewEvents = Channel<ViewEvent>(Channel.BUFFERED)
   val viewEvents = _viewEvents.receiveAsFlow()
 
   private val _viewActions = Channel<ViewAction>(Channel.BUFFERED)
@@ -48,7 +48,7 @@ abstract class BaseViewModel<ViewState, ViewEvent, ViewAction> : ViewModel() {
     }
   }
 
-  open protected fun updateViewState(state: ViewState) {
+  protected open fun updateViewState(state: ViewState) {
     _viewState.value = state
     lastViewState = state
   }
