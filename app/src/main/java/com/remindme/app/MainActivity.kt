@@ -1,15 +1,30 @@
+/*
+ * Copyright 2022 CrazyCommunity
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.remindme.app
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.remindme.app.navigation.AppNavigation
+import com.remindme.app.screens.splash.SplashViewAction
+import com.remindme.app.screens.splash.SplashViewModel
+import com.remindme.app.screens.splash.SplashViewState
 import com.remindme.app.ui.theme.RemindMeTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,24 +32,29 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       RemindMeTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-          Greeting("Android")
-        }
+        AppNavigation()
       }
     }
+    handleSplashScreenTask()
   }
-}
 
-@Composable
-fun Greeting(name: String) {
-  Text(text = "Hello $name!")
-}
+  private fun handleSplashScreenTask() {
+    val content: View = findViewById(android.R.id.content)
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-  RemindMeTheme {
-    Greeting("Android")
+    val viewModel = SplashViewModel()
+    viewModel.applyAction(SplashViewAction.Launch)
+
+    content.viewTreeObserver.addOnPreDrawListener(
+      object : ViewTreeObserver.OnPreDrawListener {
+        override fun onPreDraw(): Boolean {
+          return if (viewModel.viewState.value is SplashViewState.LoadingComplete) {
+            content.viewTreeObserver.removeOnPreDrawListener(this)
+            true
+          } else {
+            false
+          }
+        }
+      }
+    )
   }
 }
