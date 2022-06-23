@@ -21,13 +21,19 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import com.remindme.app.navigation.AppNavigation
 import com.remindme.app.screens.splash.SplashViewAction
 import com.remindme.app.screens.splash.SplashViewModel
 import com.remindme.app.screens.splash.SplashViewState
 import com.remindme.app.ui.theme.RemindMeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+  private val viewModel: SplashViewModel by viewModels()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
@@ -39,9 +45,8 @@ class MainActivity : ComponentActivity() {
   }
 
   private fun handleSplashScreenTask() {
-    val content: View = findViewById(android.R.id.content)
 
-    val viewModel = SplashViewModel()
+    val content: View = findViewById(android.R.id.content)
     viewModel.applyAction(SplashViewAction.Launch)
 
     content.viewTreeObserver.addOnPreDrawListener(
