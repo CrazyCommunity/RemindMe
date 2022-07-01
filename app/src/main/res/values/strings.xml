@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">RemindMe</string>
   <string name="timeline">Timeline</string>
+  <string name="login">Login</string>
 </resources>

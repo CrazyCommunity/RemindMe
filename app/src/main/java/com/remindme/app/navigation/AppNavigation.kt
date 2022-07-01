@@ -24,22 +24,24 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun AppNavigation() {
 
-  val navController = rememberNavController()
+    val navController = rememberNavController()
 
-  NavHost(
-    navController = navController,
-    startDestination = Navigation.Routes.TIMELINE
-  ) {
-
-    composable(route = Navigation.Routes.TIMELINE) {
-      NavigateToTimelineScreen(navController = navController)
+    NavHost(
+        navController = navController,
+        startDestination = Navigation.Routes.LOGIN
+    ) {
+        composable(route = Navigation.Routes.TIMELINE) {
+            NavigateToTimelineScreen(navController = navController)
+        }
+        composable(route = Navigation.Routes.LOGIN) {
+            NavigateToLoginScreen(navController = navController)
+        }
     }
-  }
 }
 
 object Navigation {
-  object Routes {
-    const val TIMELINE = "timeline"
-    const val LOGIN = "login"
-  }
+    object Routes {
+        const val TIMELINE = "timeline"
+        const val LOGIN = "login"
+    }
 }
