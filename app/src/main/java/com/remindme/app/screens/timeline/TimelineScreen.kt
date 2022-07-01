@@ -110,19 +110,19 @@ fun Content() {
       TimelineListGroupView(
         list = listOf(
           Reminder(
-            "Dark Soy Sauce",
-            "Short notes to be added here...",
-            Date(),
-            Date(),
+            title = "Dark Soy Sauce",
+            notes = "Short notes to be added here...",
+            purchasedOn = Date(),
+            expiry = Date(),
             Reminder.Settings(
               emptyList(), Reminder.Notify.Default
             )
           ),
           Reminder(
-            "Calpol Syrup",
-            "Short notes to be added here...",
-            Date(),
-            Date(),
+            title = "Calpol Syrup",
+            notes = "Short notes to be added here...",
+            purchasedOn = Date(),
+            expiry = Date(),
             Reminder.Settings(
               emptyList(), Reminder.Notify.Default
             )
@@ -133,10 +133,10 @@ fun Content() {
       TimelineListGroupView(
         list = listOf(
           Reminder(
-            "Dark Soy Sauce",
-            "Short notes to be added here...",
-            Date(),
-            Date(),
+            title = "Dark Soy Sauce",
+            notes = "Short notes to be added here...",
+            purchasedOn = Date(),
+            expiry = Date(),
             Reminder.Settings(
               emptyList(), Reminder.Notify.Default
             )
@@ -147,10 +147,10 @@ fun Content() {
       TimelineListGroupView(
         list = listOf(
           Reminder(
-            "Dark Soy Sauce",
-            "Short notes to be added here...",
-            Date(),
-            Date(),
+            title = "Dark Soy Sauce",
+            notes = "Short notes to be added here...",
+            purchasedOn = Date(),
+            expiry = Date(),
             Reminder.Settings(
               emptyList(), Reminder.Notify.Default
             )
@@ -161,10 +161,10 @@ fun Content() {
       TimelineListGroupView(
         list = listOf(
           Reminder(
-            "Dark Soy Sauce",
-            "Short notes to be added here...",
-            Date(),
-            Date(),
+            title = "Dark Soy Sauce",
+            notes = "Short notes to be added here...",
+            purchasedOn = Date(),
+            expiry = Date(),
             Reminder.Settings(
               emptyList(), Reminder.Notify.Default
             )
@@ -175,10 +175,10 @@ fun Content() {
       TimelineListGroupView(
         list = listOf(
           Reminder(
-            "Dark Soy Sauce",
-            "Short notes to be added here...",
-            Date(),
-            Date(),
+            title = "Dark Soy Sauce",
+            notes = "Short notes to be added here...",
+            purchasedOn = Date(),
+            expiry = Date(),
             Reminder.Settings(
               emptyList(), Reminder.Notify.Default
             )
