@@ -60,7 +60,7 @@ fun ShowTimelineScreen(navController: NavController) {
           Icon(Icons.Filled.Add, null)
         }
       },
-      drawerContent = { LeftDrawerContent() },
+      drawerContent = { NavigationDrawerContent() },
       content = { Content() }
     )
   }
@@ -89,11 +89,6 @@ fun AppTopBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
       }
     }
   )
-}
-
-@Composable
-fun LeftDrawerContent() {
-  // TODO left drawer content UI
 }
 
 @Composable
