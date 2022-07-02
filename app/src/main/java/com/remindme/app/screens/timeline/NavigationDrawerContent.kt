@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import com.remindme.app.R
 import com.remindme.app.ui.theme.Grey700
 import com.remindme.app.ui.theme.Teal100
-import com.remindme.app.ui.theme.Teal700
 
 @Composable
 fun NavigationDrawerContent() {
@@ -80,7 +80,7 @@ fun NavigationDrawerHeader() {
   Column(
     modifier = Modifier
       .fillMaxWidth()
-      .background(color = Teal700)
+      .background(color = MaterialTheme.colors.primary)
   ) {
     Image(
       painter = painterResource(id = R.drawable.ic_launcher_foreground),

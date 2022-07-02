@@ -36,33 +36,38 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.remindme.app.ui.theme.RemindMeTheme
-import com.remindme.app.ui.theme.Teal700
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
+@OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ShowTimelineScreen(navController: NavController) {
   RemindMeTheme {
 
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+    val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    Scaffold(
-      scaffoldState = scaffoldState,
-      topBar = { AppTopBar(scaffoldState, scope) },
-      floatingActionButtonPosition = FabPosition.End,
-      floatingActionButton = {
-        FloatingActionButton(onClick = {
-          // TODO open Add new bottom sheet
-        }) {
-          Icon(Icons.Filled.Add, null)
-        }
-      },
-      drawerContent = { NavigationDrawerContent() },
-      content = { Content() }
-    )
+    ModalBottomSheetLayout(sheetContent = {
+      BottomSheetContent(bottomSheetState)
+    }, sheetState = bottomSheetState) {
+      Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = { AppTopBar(scaffoldState, scope) },
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+          FloatingActionButton(onClick = {
+            scope.launch { bottomSheetState.show() }
+          }) {
+            Icon(Icons.Filled.Add, null)
+          }
+        },
+        drawerContent = { NavigationDrawerContent() },
+        content = { Content() }
+      )
+    }
   }
 }
 
@@ -71,7 +76,7 @@ fun AppTopBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
   TopAppBar(
     elevation = 5.dp,
     title = { Text("Timeline") },
-    backgroundColor = Teal700,
+    backgroundColor = MaterialTheme.colors.primary,
     navigationIcon = {
       IconButton(onClick = {
         scope.launch {
@@ -89,6 +94,16 @@ fun AppTopBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
       }
     }
   )
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun BottomSheetContent(state: ModalBottomSheetState) {
+  Surface {
+    Column(modifier = Modifier.fillMaxSize(0.7F)) {
+      Text(text = "Bottom Sheet")
+    }
+  }
 }
 
 @Composable
