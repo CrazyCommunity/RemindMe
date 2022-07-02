@@ -18,9 +18,9 @@ package com.remindme.app.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.remindme.app.screens.ShowTimelineScreen
 import com.remindme.app.screens.login.ShowLoginScreen
 import com.remindme.app.screens.login.ShowOTPScreen
+import com.remindme.app.screens.timeline.ShowTimelineScreen
 
 @Composable
 fun NavigateToLoginScreen(navController: NavController) {
