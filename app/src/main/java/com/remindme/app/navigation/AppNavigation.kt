@@ -30,11 +30,14 @@ fun AppNavigation() {
         navController = navController,
         startDestination = Navigation.Routes.LOGIN
     ) {
-        composable(route = Navigation.Routes.TIMELINE) {
-            NavigateToTimelineScreen(navController = navController)
-        }
         composable(route = Navigation.Routes.LOGIN) {
             NavigateToLoginScreen(navController = navController)
+        }
+        composable(route = Navigation.Routes.OTP_PAGE) {
+            NavigationToEnterOTPScreen(navController = navController)
+        }
+        composable(route = Navigation.Routes.TIMELINE) {
+            NavigateToTimelineScreen(navController = navController)
         }
     }
 }
@@ -42,6 +45,7 @@ fun AppNavigation() {
 object Navigation {
     object Routes {
         const val TIMELINE = "timeline"
-        const val LOGIN = "login"
+        const val LOGIN = "login_page"
+        const val OTP_PAGE = "otp_page"
     }
 }

@@ -18,6 +18,7 @@ package com.remindme.app.screens.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -35,7 +37,7 @@ import com.remindme.app.navigation.Navigation
 import com.remindme.app.ui.theme.RemindMeTheme
 
 @Composable
-fun ShowLoginScreen(navController: NavController) {
+fun ShowOTPScreen(navController: NavController) {
     RemindMeTheme {
         Surface(color = MaterialTheme.colors.primary) {
             Column(
@@ -48,13 +50,13 @@ fun ShowLoginScreen(navController: NavController) {
                     contentDescription = stringResource(id = R.string.login)
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                PhoneOrEmailInputView()
+                EnterOTPInputText()
                 Spacer(modifier = Modifier.height(120.dp))
 
                 Button(
                     onClick = {
-                              // TODO: remove this
-                              navController.navigate(Navigation.Routes.OTP_PAGE)
+                        // TODO: remove this
+                        navController.navigate(Navigation.Routes.TIMELINE)
                     },
                     Modifier
                         .fillMaxWidth()
@@ -65,7 +67,7 @@ fun ShowLoginScreen(navController: NavController) {
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.login_or_register), style = TextStyle(Color.White)
+                        text = stringResource(R.string.login), style = TextStyle(Color.White)
                     )
                 }
                 Box(modifier = Modifier.fillMaxSize()) {
@@ -83,18 +85,24 @@ fun ShowLoginScreen(navController: NavController) {
 
 @Preview
 @Composable
-private fun LoginScreenPreview() {
-    ShowLoginScreen(rememberNavController())
+private fun OTPPagePreview() {
+    ShowOTPScreen(rememberNavController())
 }
 
 @Composable
-fun PhoneOrEmailInputView() {
+fun EnterOTPInputText() {
     var text by remember { mutableStateOf("") }
 
     OutlinedTextField(
         value = text,
         onValueChange = { text = it },
-        label = { Text(stringResource(R.string.phone_or_email), style = TextStyle(color = Color.White)) },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        label = {
+            Text(
+                stringResource(R.string.enter_otp),
+                style = TextStyle(color = Color.White)
+            )
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.White,
             unfocusedBorderColor = Color.White,
