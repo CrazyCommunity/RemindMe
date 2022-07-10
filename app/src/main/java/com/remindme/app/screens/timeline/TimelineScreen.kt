@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -50,16 +51,31 @@ fun ShowTimelineScreen(navController: NavController) {
     val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    ModalBottomSheetLayout(sheetContent = {
-      BottomSheetContent(bottomSheetState)
-    }, sheetState = bottomSheetState) {
+    ModalBottomSheetLayout(
+      sheetState = bottomSheetState, sheetElevation = 10.dp,
+      sheetShape = RoundedCornerShape(
+        bottomStart = 0.dp,
+        bottomEnd = 0.dp,
+        topStart = 20.dp,
+        topEnd = 20.dp
+      ),
+      sheetContent = {
+        AddNewBottomSheet()
+      }
+    ) {
       Scaffold(
         scaffoldState = scaffoldState,
         topBar = { AppTopBar(scaffoldState, scope) },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
           FloatingActionButton(onClick = {
-            scope.launch { bottomSheetState.show() }
+            scope.launch {
+              if (!bottomSheetState.isVisible) {
+                bottomSheetState.show()
+              } else {
+                bottomSheetState.hide()
+              }
+            }
           }) {
             Icon(Icons.Filled.Add, null)
           }
@@ -94,16 +110,6 @@ fun AppTopBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
       }
     }
   )
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun BottomSheetContent(state: ModalBottomSheetState) {
-  Surface {
-    Column(modifier = Modifier.fillMaxSize(0.7F)) {
-      Text(text = "Bottom Sheet")
-    }
-  }
 }
 
 @Composable
