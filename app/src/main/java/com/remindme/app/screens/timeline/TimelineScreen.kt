@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.remindme.app.ui.component.DrawerView
 import com.remindme.app.ui.theme.RemindMeTheme
 import com.remindme.app.ui.theme.Teal700
 import kotlinx.coroutines.CoroutineScope
@@ -44,154 +45,154 @@ import java.util.*
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ShowTimelineScreen(navController: NavController) {
-  RemindMeTheme {
+    RemindMeTheme {
 
-    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-    val scope = rememberCoroutineScope()
+        val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+        val scope = rememberCoroutineScope()
 
-    Scaffold(
-      scaffoldState = scaffoldState,
-      topBar = { AppTopBar(scaffoldState, scope) },
-      floatingActionButtonPosition = FabPosition.End,
-      floatingActionButton = {
-        FloatingActionButton(onClick = {
-          // TODO open Add new bottom sheet
-        }) {
-          Icon(Icons.Filled.Add, null)
-        }
-      },
-      drawerContent = { LeftDrawerContent() },
-      content = { Content() }
-    )
-  }
+        Scaffold(
+            scaffoldState = scaffoldState,
+            topBar = { AppTopBar(scaffoldState, scope) },
+            floatingActionButtonPosition = FabPosition.End,
+            floatingActionButton = {
+                FloatingActionButton(onClick = {
+                    // TODO open Add new bottom sheet
+                }) {
+                    Icon(Icons.Filled.Add, null)
+                }
+            },
+            drawerContent = { LeftDrawerContent() },
+            content = { Content() }
+        )
+    }
 }
 
 @Composable
 fun AppTopBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
-  TopAppBar(
-    elevation = 5.dp,
-    title = { Text("Timeline") },
-    backgroundColor = Teal700,
-    navigationIcon = {
-      IconButton(onClick = {
-        scope.launch {
-          scaffoldState.drawerState.open()
+    TopAppBar(
+        elevation = 5.dp,
+        title = { Text("Timeline") },
+        backgroundColor = Teal700,
+        navigationIcon = {
+            IconButton(onClick = {
+                scope.launch {
+                    scaffoldState.drawerState.open()
+                }
+            }) {
+                Icon(Icons.Filled.Menu, null)
+            }
+        },
+        actions = {
+            IconButton(onClick = {
+                // TODO open search screen
+            }) {
+                Icon(Icons.Filled.Search, null)
+            }
         }
-      }) {
-        Icon(Icons.Filled.Menu, null)
-      }
-    },
-    actions = {
-      IconButton(onClick = {
-        // TODO open search screen
-      }) {
-        Icon(Icons.Filled.Search, null)
-      }
-    }
-  )
+    )
 }
 
 @Composable
 fun LeftDrawerContent() {
-  // TODO left drawer content UI
+    DrawerView()
 }
 
 @Composable
 fun Content() {
-  Surface {
-    Column(
-      modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .fillMaxSize()
-    ) {
+    Surface {
+        Column(
+            modifier = Modifier
+              .verticalScroll(rememberScrollState())
+              .fillMaxSize()
+        ) {
 
-      Spacer(modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.size(20.dp))
 
-      TimelineListGroupView(
-        list = listOf(
-          Reminder(
-            title = "Dark Soy Sauce",
-            notes = "Short notes to be added here...",
-            purchasedOn = Date(),
-            expiry = Date(),
-            Reminder.Settings(
-              emptyList(), Reminder.Notify.Default
+            TimelineListGroupView(
+                list = listOf(
+                    Reminder(
+                        title = "Dark Soy Sauce",
+                        notes = "Short notes to be added here...",
+                        purchasedOn = Date(),
+                        expiry = Date(),
+                        Reminder.Settings(
+                            emptyList(), Reminder.Notify.Default
+                        )
+                    ),
+                    Reminder(
+                        title = "Calpol Syrup",
+                        notes = "Short notes to be added here...",
+                        purchasedOn = Date(),
+                        expiry = Date(),
+                        Reminder.Settings(
+                            emptyList(), Reminder.Notify.Default
+                        )
+                    )
+                ), timelineState = TimelineState.EXPIRED
             )
-          ),
-          Reminder(
-            title = "Calpol Syrup",
-            notes = "Short notes to be added here...",
-            purchasedOn = Date(),
-            expiry = Date(),
-            Reminder.Settings(
-              emptyList(), Reminder.Notify.Default
-            )
-          )
-        ), timelineState = TimelineState.EXPIRED
-      )
 
-      TimelineListGroupView(
-        list = listOf(
-          Reminder(
-            title = "Dark Soy Sauce",
-            notes = "Short notes to be added here...",
-            purchasedOn = Date(),
-            expiry = Date(),
-            Reminder.Settings(
-              emptyList(), Reminder.Notify.Default
+            TimelineListGroupView(
+                list = listOf(
+                    Reminder(
+                        title = "Dark Soy Sauce",
+                        notes = "Short notes to be added here...",
+                        purchasedOn = Date(),
+                        expiry = Date(),
+                        Reminder.Settings(
+                            emptyList(), Reminder.Notify.Default
+                        )
+                    )
+                ), timelineState = TimelineState.TODAY
             )
-          )
-        ), timelineState = TimelineState.TODAY
-      )
 
-      TimelineListGroupView(
-        list = listOf(
-          Reminder(
-            title = "Dark Soy Sauce",
-            notes = "Short notes to be added here...",
-            purchasedOn = Date(),
-            expiry = Date(),
-            Reminder.Settings(
-              emptyList(), Reminder.Notify.Default
+            TimelineListGroupView(
+                list = listOf(
+                    Reminder(
+                        title = "Dark Soy Sauce",
+                        notes = "Short notes to be added here...",
+                        purchasedOn = Date(),
+                        expiry = Date(),
+                        Reminder.Settings(
+                            emptyList(), Reminder.Notify.Default
+                        )
+                    )
+                ), timelineState = TimelineState.TOMORROW
             )
-          )
-        ), timelineState = TimelineState.TOMORROW
-      )
 
-      TimelineListGroupView(
-        list = listOf(
-          Reminder(
-            title = "Dark Soy Sauce",
-            notes = "Short notes to be added here...",
-            purchasedOn = Date(),
-            expiry = Date(),
-            Reminder.Settings(
-              emptyList(), Reminder.Notify.Default
+            TimelineListGroupView(
+                list = listOf(
+                    Reminder(
+                        title = "Dark Soy Sauce",
+                        notes = "Short notes to be added here...",
+                        purchasedOn = Date(),
+                        expiry = Date(),
+                        Reminder.Settings(
+                            emptyList(), Reminder.Notify.Default
+                        )
+                    )
+                ), timelineState = TimelineState.THIS_WEEK
             )
-          )
-        ), timelineState = TimelineState.THIS_WEEK
-      )
 
-      TimelineListGroupView(
-        list = listOf(
-          Reminder(
-            title = "Dark Soy Sauce",
-            notes = "Short notes to be added here...",
-            purchasedOn = Date(),
-            expiry = Date(),
-            Reminder.Settings(
-              emptyList(), Reminder.Notify.Default
+            TimelineListGroupView(
+                list = listOf(
+                    Reminder(
+                        title = "Dark Soy Sauce",
+                        notes = "Short notes to be added here...",
+                        purchasedOn = Date(),
+                        expiry = Date(),
+                        Reminder.Settings(
+                            emptyList(), Reminder.Notify.Default
+                        )
+                    )
+                ), timelineState = TimelineState.LATER
             )
-          )
-        ), timelineState = TimelineState.LATER
-      )
 
+        }
     }
-  }
 }
 
 @Preview
 @Composable
 private fun ShowTimelineScreenPreview() {
-  ShowTimelineScreen(rememberNavController())
+    ShowTimelineScreen(rememberNavController())
 }
