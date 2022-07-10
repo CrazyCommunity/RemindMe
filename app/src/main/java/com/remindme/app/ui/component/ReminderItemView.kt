@@ -38,76 +38,76 @@ import com.remindme.app.ui.theme.RemindMeTheme
 
 @Composable
 fun ReminderItemView(reminder: Reminder? = null) {
-  RemindMeTheme {
-    Surface {
-      Card(
-        shape = RoundedCornerShape(5.dp),
-        elevation = 5.dp,
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(5.dp)
-      ) {
-        ConstraintLayout(
-          modifier = Modifier
-            .padding(10.dp)
-        ) {
-          val (title, notes, space, purchaseDate, expiredWhenText) = createRefs()
-          Text(
-            text = reminder?.title ?: "Title",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            color = Grey700,
-            modifier = Modifier
-              .constrainAs(title) {}
-          )
+    RemindMeTheme {
+        Surface {
+            Card(
+                shape = RoundedCornerShape(5.dp),
+                elevation = 5.dp,
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(5.dp)
+            ) {
+                ConstraintLayout(
+                    modifier = Modifier
+                        .padding(10.dp)
+                ) {
+                    val (title, notes, space, purchaseDate, expiredWhenText) = createRefs()
+                    Text(
+                        text = reminder?.title ?: "Title",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Grey700,
+                        modifier = Modifier
+                            .constrainAs(title) {}
+                    )
 
-          Text(
-            text = reminder?.notes ?: "Short Notes",
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            color = Grey700,
-            modifier = Modifier
-              .constrainAs(notes) {
-                top.linkTo(title.bottom)
-              }
-          )
+                    Text(
+                        text = reminder?.notes ?: "Short Notes",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Grey700,
+                        modifier = Modifier
+                            .constrainAs(notes) {
+                                top.linkTo(title.bottom)
+                            }
+                    )
 
-          Spacer(modifier = Modifier
-            .size(4.dp)
-            .constrainAs(space) {
-              top.linkTo(notes.bottom)
-            })
+                    Spacer(modifier = Modifier
+                      .size(4.dp)
+                      .constrainAs(space) {
+                        top.linkTo(notes.bottom)
+                      })
 
-          Text(
-            text = "Purchase date: 20-02-2022",
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            color = Grey700,
-            modifier = Modifier
-              .constrainAs(purchaseDate) {
-                top.linkTo(space.bottom)
-              }
-          )
+                    Text(
+                        text = "Purchase date: 20-02-2022",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Grey700,
+                        modifier = Modifier
+                            .constrainAs(purchaseDate) {
+                                top.linkTo(space.bottom)
+                            }
+                    )
 
-          Text(
-            text = "03-05-2022",
-            fontSize = 10.sp,
-            fontWeight = FontWeight.Medium,
-            color = Orange700,
-            modifier = Modifier
-              .constrainAs(expiredWhenText) {
-                end.linkTo(parent.end)
-              }
-          )
+                    Text(
+                        text = "03-05-2022",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Orange700,
+                        modifier = Modifier
+                            .constrainAs(expiredWhenText) {
+                                end.linkTo(parent.end)
+                            }
+                    )
 
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @Composable
 @Preview
 private fun ReminderItemViewPreview() {
-  ReminderItemView()
+    ReminderItemView()
 }

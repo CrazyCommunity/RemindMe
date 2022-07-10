@@ -53,8 +53,8 @@ fun ShowLoginScreen(navController: NavController) {
 
                 Button(
                     onClick = {
-                              // TODO: remove this
-                              navController.navigate(Navigation.Routes.OTP_PAGE)
+                        // TODO: remove this
+                        navController.navigate(Navigation.Routes.OTP_PAGE)
                     },
                     Modifier
                         .fillMaxWidth()
@@ -65,7 +65,8 @@ fun ShowLoginScreen(navController: NavController) {
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.login_or_register), style = TextStyle(Color.White)
+                        text = stringResource(R.string.login_or_register),
+                        style = TextStyle(Color.White)
                     )
                 }
                 Box(modifier = Modifier.fillMaxSize()) {
@@ -94,7 +95,12 @@ fun PhoneOrEmailInputView() {
     OutlinedTextField(
         value = text,
         onValueChange = { text = it },
-        label = { Text(stringResource(R.string.phone_or_email), style = TextStyle(color = Color.White)) },
+        label = {
+            Text(
+                stringResource(R.string.phone_or_email),
+                style = TextStyle(color = Color.White)
+            )
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.White,
             unfocusedBorderColor = Color.White,
