@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -36,33 +37,53 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.remindme.app.ui.theme.RemindMeTheme
-import com.remindme.app.ui.theme.Teal700
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
+@OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ShowTimelineScreen(navController: NavController) {
   RemindMeTheme {
 
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+    val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    Scaffold(
-      scaffoldState = scaffoldState,
-      topBar = { AppTopBar(scaffoldState, scope) },
-      floatingActionButtonPosition = FabPosition.End,
-      floatingActionButton = {
-        FloatingActionButton(onClick = {
-          // TODO open Add new bottom sheet
-        }) {
-          Icon(Icons.Filled.Add, null)
-        }
-      },
-      drawerContent = { NavigationDrawerContent() },
-      content = { Content() }
-    )
+    ModalBottomSheetLayout(
+      sheetState = bottomSheetState, sheetElevation = 10.dp,
+      sheetShape = RoundedCornerShape(
+        bottomStart = 0.dp,
+        bottomEnd = 0.dp,
+        topStart = 20.dp,
+        topEnd = 20.dp
+      ),
+      sheetContent = {
+        AddNewBottomSheet()
+      }
+    ) {
+      Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = { AppTopBar(scaffoldState, scope) },
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+          FloatingActionButton(onClick = {
+            scope.launch {
+              if (!bottomSheetState.isVisible) {
+                bottomSheetState.show()
+              } else {
+                bottomSheetState.hide()
+              }
+            }
+          }) {
+            Icon(Icons.Filled.Add, null)
+          }
+        },
+        drawerContent = { NavigationDrawerContent() },
+        content = { Content() }
+      )
+    }
   }
 }
 
@@ -71,7 +92,7 @@ fun AppTopBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
   TopAppBar(
     elevation = 5.dp,
     title = { Text("Timeline") },
-    backgroundColor = Teal700,
+    backgroundColor = MaterialTheme.colors.primary,
     navigationIcon = {
       IconButton(onClick = {
         scope.launch {
