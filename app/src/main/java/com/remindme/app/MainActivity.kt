@@ -32,34 +32,34 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-  private val viewModel: SplashViewModel by viewModels()
+    private val viewModel: SplashViewModel by viewModels()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      RemindMeTheme {
-        AppNavigation()
-      }
-    }
-    handleSplashScreenTask()
-  }
-
-  private fun handleSplashScreenTask() {
-
-    val content: View = findViewById(android.R.id.content)
-    viewModel.applyAction(SplashViewAction.Launch)
-
-    content.viewTreeObserver.addOnPreDrawListener(
-      object : ViewTreeObserver.OnPreDrawListener {
-        override fun onPreDraw(): Boolean {
-          return if (viewModel.viewState.value is SplashViewState.LoadingComplete) {
-            content.viewTreeObserver.removeOnPreDrawListener(this)
-            true
-          } else {
-            false
-          }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            RemindMeTheme {
+                AppNavigation()
+            }
         }
-      }
-    )
-  }
+        handleSplashScreenTask()
+    }
+
+    private fun handleSplashScreenTask() {
+
+        val content: View = findViewById(android.R.id.content)
+        viewModel.applyAction(SplashViewAction.Launch)
+
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    return if (viewModel.viewState.value is SplashViewState.LoadingComplete) {
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+        )
+    }
 }
