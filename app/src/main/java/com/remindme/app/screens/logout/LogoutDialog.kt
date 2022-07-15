@@ -16,44 +16,14 @@
 
 package com.remindme.app.screens.logout
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.remindme.app.R
-
-
-@Composable
-fun SetupLogoutDialog() {
-    // State to manage if the alert dialog is showing or not.
-    // Default is false (not showing)
-    val (showDialog, setShowDialog) = remember { mutableStateOf(false) }
-    Column(
-        // Make the column fill the whole screen space (width and height).
-        modifier = Modifier.fillMaxSize(),
-        // Place all children at center horizontally.
-        horizontalAlignment = Alignment.CenterHorizontally,
-        // Place all children at center vertically.
-        verticalArrangement = Arrangement.Center
-    ) {
-        Button(
-            onClick = {
-                setShowDialog(true)
-            }) {
-            Text("Show Dialog")
-        }
-        // Create alert dialog, pass the showDialog state to this Composable
-        LogoutDialog(showDialog, setShowDialog)
-    }
-}
 
 
 @Composable

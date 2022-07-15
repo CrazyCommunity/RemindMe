@@ -16,13 +16,20 @@
 
 package com.remindme.app.screens.timeline
 
-import com.remindme.app.R
+import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class NavDrawerItem(val route: String, val icon: Int, val title: String) {
-  object Timeline : NavDrawerItem("timeline", R.drawable.ic_timeline, "Timeline")
-  object Settings : NavDrawerItem("settings", R.drawable.ic_settings, "Settings")
-  object Logout : NavDrawerItem("logout", R.drawable.ic_logout, "Logout")
-  object TermsOfUse : NavDrawerItem("terms_of_use", R.drawable.ic_terms, "Terms of Use")
-  object PrivacyPolicy : NavDrawerItem("privacy_policy", R.drawable.ic_privacy, "Privacy Policy")
-  object EmailUs : NavDrawerItem("email_us", R.drawable.ic_email, "Email Us")
+sealed class MenuType {
+  object Timeline: MenuType()
+  object Settings: MenuType()
+  object Logout: MenuType()
+  object TermsOfUse: MenuType()
+  object PrivacyPolicy: MenuType()
+  object EmailUs: MenuType()
 }
+
+data class MenuItem(
+  val type: MenuType,
+  val title: String,
+  val contentDescription: String,
+  val icon: ImageVector
+)
