@@ -38,7 +38,7 @@ fun SwipeRevealView(
         Icon(
           painter = painterResource(id = R.drawable.ic_edit),
           tint = Blue700,
-          contentDescription = "edit action",
+          contentDescription = null
         )
       }
     )
@@ -48,7 +48,7 @@ fun SwipeRevealView(
         Icon(
           painter = painterResource(id = R.drawable.ic_delete),
           tint = Red700,
-          contentDescription = "delete item",
+          contentDescription = null
         )
       }
     )

@@ -153,9 +153,6 @@ fun TimelineListGroupView(list: List<Reminder>, timelineState: TimelineState) {
               directions = setOf(
                 RevealDirection.End
               ),
-              onContentClick = {
-                println("hello")
-              },
               hiddenContentEnd = {
                 SwipeRevealView(onEdit = { /*TODO*/ }) {
                 }
