@@ -18,15 +18,13 @@ package com.remindme.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal700 = Color(0xFF009688)
-val Teal100 = Color(0x1A009688)
-val Red700 = Color(0xFFE70E0E)
+val Teal700 = Color(0xFF018786)
+val Teal100 = Color(0x1A018786)
+val Red700 = Color(0xFFEC4F4F)
 val Grey700 = Color(0xFF6F6F6F)
 val Grey500 = Color(0xFFA2A1A1)
 val Orange700 = Color(0xFFFF7949)
 val Yellow700 = Color(0xFFFFC452)
 val Green700 = Color(0xFF0E8421)
+val Blue700 = Color(0xFF638DF9)
 val White700 = Color(0xFFFFFFFF)

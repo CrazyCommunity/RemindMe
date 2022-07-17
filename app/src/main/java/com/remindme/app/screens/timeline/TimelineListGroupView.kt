@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -42,6 +43,9 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.remindme.app.ui.component.ReminderItemView
+import com.remindme.app.ui.component.RevealDirection
+import com.remindme.app.ui.component.RevealSwipe
+import com.remindme.app.ui.component.SwipeRevealView
 import com.remindme.app.ui.theme.Green700
 import com.remindme.app.ui.theme.Orange700
 import com.remindme.app.ui.theme.Red700
@@ -50,6 +54,7 @@ import com.remindme.app.ui.theme.Yellow700
 import com.remindme.app.ui.theme.dashedBorder
 import java.util.*
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TimelineListGroupView(list: List<Reminder>, timelineState: TimelineState) {
   RemindMeTheme {
@@ -143,8 +148,18 @@ fun TimelineListGroupView(list: List<Reminder>, timelineState: TimelineState) {
             if (timelineState == TimelineState.LATER) bottom.linkTo(textEnd.top)
             width = Dimension.fillToConstraints
           }) {
-          list.forEach {
-            ReminderItemView(it)
+          list.forEach { item ->
+            RevealSwipe(
+              directions = setOf(
+                RevealDirection.End
+              ),
+              hiddenContentEnd = {
+                SwipeRevealView(onEdit = { /*TODO*/ }) {
+                }
+              }
+            ) {
+              ReminderItemView(item)
+            }
           }
         }
 
