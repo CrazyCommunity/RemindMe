@@ -14,31 +14,15 @@
  * limitations under the License.
  */
 
-package com.remindme.app.navigation
+package com.remindme.app.screens.details
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.remindme.app.screens.details.DetailsScreen
-import com.remindme.app.screens.login.ShowLoginScreen
-import com.remindme.app.screens.login.ShowOTPScreen
-import com.remindme.app.screens.timeline.ShowTimelineScreen
+import com.remindme.app.ui.theme.RemindMeTheme
 
 @Composable
-fun NavigateToLoginScreen(navController: NavController) {
-    ShowLoginScreen(navController)
-}
+fun DetailsScreen(navController: NavController) {
+  RemindMeTheme {
 
-@Composable
-fun NavigateToTimelineScreen(navController: NavController) {
-    ShowTimelineScreen(navController)
-}
-
-@Composable
-fun NavigationToEnterOTPScreen(navController: NavController) {
-    ShowOTPScreen(navController = navController)
-}
-
-@Composable
-fun NavigateToDetailsScreen(navController: NavController) {
-    DetailsScreen(navController)
+  }
 }

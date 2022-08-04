@@ -39,6 +39,9 @@ fun AppNavigation() {
         composable(route = Navigation.Routes.TIMELINE) {
             NavigateToTimelineScreen(navController = navController)
         }
+        composable(route = Navigation.Routes.DETAILS) {
+            NavigateToDetailsScreen(navController = navController)
+        }
     }
 }
 
@@ -47,5 +50,6 @@ object Navigation {
         const val TIMELINE = "timeline"
         const val LOGIN = "login_page"
         const val OTP_PAGE = "otp_page"
+        const val DETAILS = "details"
     }
 }
