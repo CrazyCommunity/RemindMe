@@ -22,17 +22,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,133 +49,172 @@ import com.remindme.app.ui.theme.Grey700
 
 @Composable
 fun RemindMeInputView(label: String, caption: String = "", showCaption: Boolean = false) {
-  var text by remember { mutableStateOf("") }
-  Spacer(modifier = Modifier.size(10.dp))
+    var text by remember { mutableStateOf("") }
+    Spacer(modifier = Modifier.size(10.dp))
 
-  OutlinedTextField(
-    value = text,
-    singleLine = true,
-    maxLines = 1,
-    onValueChange = { text = it },
-    label = {
-      Text(
-        label,
-        color = Grey700
-      )
-    },
-    colors = TextFieldDefaults.outlinedTextFieldColors(
-      focusedBorderColor = MaterialTheme.colors.primary,
-      unfocusedBorderColor = MaterialTheme.colors.primary,
-      focusedLabelColor = MaterialTheme.colors.primary,
-      cursorColor = MaterialTheme.colors.primary,
-      textColor = MaterialTheme.colors.primary
-    ),
-    modifier = Modifier.fillMaxWidth()
-  )
-  if (showCaption) {
-    Box(
-      modifier = Modifier
-        .fillMaxWidth(),
-      contentAlignment = Alignment.BottomEnd
-    ) {
-      Text(
-        fontSize = 10.sp,
-        fontWeight = FontWeight.Light,
-        color = Grey700,
-        text = caption,
-        modifier = Modifier.padding(top = 5.dp)
-      )
+    OutlinedTextField(
+        value = text,
+        singleLine = true,
+        maxLines = 1,
+        onValueChange = { text = it },
+        label = {
+            Text(
+                label,
+                color = Grey700
+            )
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colors.primary,
+            unfocusedBorderColor = MaterialTheme.colors.primary,
+            focusedLabelColor = MaterialTheme.colors.primary,
+            cursorColor = MaterialTheme.colors.primary,
+            textColor = MaterialTheme.colors.primary
+        ),
+        modifier = Modifier.fillMaxWidth()
+    )
+    if (showCaption) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            Text(
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Light,
+                color = Grey700,
+                text = caption,
+                modifier = Modifier.padding(top = 5.dp)
+            )
+        }
     }
-  }
 }
 
 @Composable
 fun DatePickerView(label: String) {
-  var text by remember { mutableStateOf("") }
-  Spacer(modifier = Modifier.size(10.dp))
+    var text by remember { mutableStateOf("") }
+    Spacer(modifier = Modifier.size(10.dp))
 
-  val trailingIconView = @Composable {
-    IconButton(
-      onClick = {
-        // TODO open default data picker
-      },
-    ) {
-      Image(
-        painter = painterResource(id = R.drawable.ic_calendar),
-        null
-      )
+    val trailingIconView = @Composable {
+        IconButton(
+            onClick = {
+                // TODO open default data picker
+            },
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_calendar),
+                null
+            )
+        }
     }
-  }
 
-  OutlinedTextField(
-    value = text,
-    onValueChange = { text = it },
-    singleLine = true,
-    maxLines = 1,
-    readOnly = true,
-    label = {
-      Row {
-        Text(label, color = Grey700)
-        Box(
-          modifier = Modifier
-            .fillMaxWidth(),
-          contentAlignment = Alignment.BottomEnd
-        ) { Text("03-07-2022", color = Grey700) }
-      }
-    },
-    colors = TextFieldDefaults.outlinedTextFieldColors(
-      focusedBorderColor = MaterialTheme.colors.primary,
-      unfocusedBorderColor = MaterialTheme.colors.primary,
-      focusedLabelColor = MaterialTheme.colors.primary,
-      cursorColor = MaterialTheme.colors.primary,
-      textColor = MaterialTheme.colors.primary
-    ),
-    modifier = Modifier.fillMaxWidth(),
-    trailingIcon = trailingIconView
-  )
+    OutlinedTextField(
+        value = text,
+        onValueChange = { text = it },
+        singleLine = true,
+        maxLines = 1,
+        readOnly = true,
+        label = {
+            Row {
+                Text(label, color = Grey700)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.BottomEnd
+                ) { Text("03-07-2022", color = Grey700) }
+            }
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colors.primary,
+            unfocusedBorderColor = MaterialTheme.colors.primary,
+            focusedLabelColor = MaterialTheme.colors.primary,
+            cursorColor = MaterialTheme.colors.primary,
+            textColor = MaterialTheme.colors.primary
+        ),
+        modifier = Modifier.fillMaxWidth(),
+        trailingIcon = trailingIconView
+    )
 }
 
 @Composable
-fun RemindBeforeCheckboxGroup() {
-  Column(modifier = Modifier.padding(top = 20.dp)) {
-    Row {
-      CheckboxWithLabel(label = "60 days")
-      Spacer(Modifier.size(width = 50.dp, height = 0.dp))
-      CheckboxWithLabel(label = "7 days")
+fun RemindBeforeCheckboxGroup(modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(top = 10.dp)) {
+        Row {
+            CheckboxWithLabel(label = "60 days")
+            Spacer(Modifier.size(width = 50.dp, height = 0.dp))
+            CheckboxWithLabel(label = "7 days")
+        }
+        Row {
+            CheckboxWithLabel(label = "30 days")
+            Spacer(Modifier.size(width = 50.dp, height = 0.dp))
+            CheckboxWithLabel(label = "1 day")
+        }
     }
-    Row {
-      CheckboxWithLabel(label = "30 days")
-      Spacer(Modifier.size(width = 50.dp, height = 0.dp))
-      CheckboxWithLabel(label = "1 day")
+}
+
+@Composable
+fun NotifyRadioGroupOptions(
+    modifier: Modifier = Modifier,
+    radioOptions: List<String> = listOf("Weekly", "Daily", "Default")
+) {
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+    Row(
+        modifier
+            .selectableGroup()
+            .padding(top = 10.dp)
+    ) {
+        radioOptions.forEach { text ->
+            Row(
+                Modifier
+                    .selectable(
+                        selected = (text == selectedOption),
+                        onClick = { onOptionSelected(text) },
+                        role = Role.RadioButton
+                    )
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = (text == selectedOption),
+                    colors = RadioButtonDefaults.colors(
+                        unselectedColor = Grey500
+                    ),
+                    onClick = null // null recommended for accessibility with screenreaders
+                )
+                Text(
+                    text = text,
+                    color = Grey700,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
+        }
     }
-  }
 }
 
 @Composable
 fun CheckboxWithLabel(label: String) {
-  Row(
-    verticalAlignment = Alignment.CenterVertically,
-    modifier = Modifier
-      .clip(MaterialTheme.shapes.small)
-      .requiredHeight(ButtonDefaults.MinHeight)
-      .padding(4.dp)
-  ) {
-    val isChecked = remember { mutableStateOf(false) }
-    Checkbox(
-      checked = isChecked.value,
-      onCheckedChange = { isChecked.value = it },
-      enabled = true,
-      colors = CheckboxDefaults.colors(
-        checkedColor = MaterialTheme.colors.primary,
-        uncheckedColor = Grey500
-      )
-    )
-    Text(text = label, color = Grey700)
-  }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clip(MaterialTheme.shapes.small)
+            .requiredHeight(ButtonDefaults.MinHeight)
+            .padding(4.dp)
+    ) {
+        val isChecked = remember { mutableStateOf(false) }
+        Checkbox(
+            checked = isChecked.value,
+            onCheckedChange = { isChecked.value = it },
+            enabled = true,
+            colors = CheckboxDefaults.colors(
+                checkedColor = MaterialTheme.colors.primary,
+                uncheckedColor = Grey500
+            )
+        )
+        Text(text = label, color = Grey700)
+    }
 }
 
 @Preview
 @Composable
 fun CheckboxGroupPreview() {
-  RemindBeforeCheckboxGroup()
+    RemindBeforeCheckboxGroup()
 }

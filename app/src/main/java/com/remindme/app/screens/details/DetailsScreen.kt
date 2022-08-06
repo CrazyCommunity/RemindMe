@@ -28,20 +28,29 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.remindme.app.ui.component.NotifyRadioGroupOptions
+import com.remindme.app.ui.component.RemindBeforeCheckboxGroup
+import com.remindme.app.ui.theme.Grey300
+import com.remindme.app.ui.theme.Grey500
 import com.remindme.app.ui.theme.Grey700
 import com.remindme.app.ui.theme.Orange700
 import com.remindme.app.ui.theme.RemindMeTheme
@@ -59,7 +68,7 @@ fun DetailsScreen(navController: NavController, itemDetails: ItemDetails? = null
     RemindMeTheme {
         Surface {
             Column {
-                AppTopBar(itemDetails?.title ?: "")
+                AppTopBar("Dark Soy Sauce")
                 Content(itemDetails)
             }
         }
@@ -128,14 +137,109 @@ private fun Content(itemDetails: ItemDetails?) {
                 .padding(start = 15.dp, end = 15.dp),
             elevation = 7.dp
         ) {
-            Text(
-                text = "Settings",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Black,
-                modifier = Modifier.padding(start = 12.dp, top = 12.dp)
-            )
-            Column(modifier = Modifier.padding(12.dp)) {
+
+            ConstraintLayout(
+                modifier = Modifier
+                    .padding(10.dp)
+            ) {
+                val (settingsTxt, doNotRemindTxt, doNotRemindSwitch, remindMeEmailTxt, remindMeEmailSwitch, remindMeBeforeTxt, remindMeBeforeOptions, notifyTxt, notifyOptions) = createRefs()
+                Text(
+                    text = "Settings",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .constrainAs(settingsTxt) {}
+                )
+
+                Text(
+                    text = "Do not remind",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Grey700,
+                    modifier = Modifier
+                        .padding(start = 10.dp, top = 14.dp)
+                        .constrainAs(doNotRemindTxt) {
+                            top.linkTo(settingsTxt.bottom)
+                        }
+                )
+
+                val checkedState = remember { mutableStateOf(false) }
+                Switch(
+                    checked = checkedState.value,
+                    onCheckedChange = { checkedState.value = it },
+                    modifier = Modifier
+                        .constrainAs(doNotRemindSwitch) {
+                            top.linkTo(doNotRemindTxt.top)
+                            end.linkTo(parent.end)
+                        },
+                    colors = SwitchDefaults.colors(
+                        uncheckedThumbColor = Grey500,
+                        uncheckedTrackColor = Grey300
+                    )
+                )
+
+                Text(
+                    text = "Remind me via email/phone",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Grey700,
+                    modifier = Modifier
+                        .padding(start = 10.dp, top = 14.dp)
+                        .constrainAs(remindMeEmailTxt) {
+                            top.linkTo(doNotRemindTxt.bottom)
+                        }
+                )
+
+                val checkedStateRemindEmail = remember { mutableStateOf(false) }
+                Switch(
+                    checked = checkedStateRemindEmail.value,
+                    onCheckedChange = { checkedStateRemindEmail.value = it },
+                    modifier = Modifier
+                        .constrainAs(remindMeEmailSwitch) {
+                            top.linkTo(remindMeEmailTxt.top)
+                            end.linkTo(parent.end)
+                        },
+                    colors = SwitchDefaults.colors(
+                        uncheckedThumbColor = Grey500,
+                        uncheckedTrackColor = Grey300
+                    )
+                )
+
+                Text(
+                    text = "Remind me before",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Grey700,
+                    modifier = Modifier
+                        .padding(start = 10.dp, top = 14.dp)
+                        .constrainAs(remindMeBeforeTxt) {
+                            top.linkTo(remindMeEmailTxt.bottom)
+                        }
+                )
+
+                RemindBeforeCheckboxGroup(modifier = Modifier.constrainAs(remindMeBeforeOptions) {
+                    top.linkTo(remindMeBeforeTxt.bottom)
+                })
+
+                Text(
+                    text = "Notify",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Grey700,
+                    modifier = Modifier
+                        .padding(start = 10.dp, top = 14.dp)
+                        .constrainAs(notifyTxt) {
+                            top.linkTo(remindMeBeforeOptions.bottom)
+                        }
+                )
+
+                NotifyRadioGroupOptions(
+                    modifier = Modifier
+                        .padding(bottom = 30.dp)
+                        .constrainAs(notifyOptions) {
+                            top.linkTo(notifyTxt.bottom)
+                        })
 
             }
         }
