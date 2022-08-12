@@ -23,4 +23,14 @@
   <string name="menu_terms_of_use">Terms of Use</string>
   <string name="menu_privacy_policy">Privacy Policy</string>
   <string name="menu_email_us">Email Us</string>
+  <string name="days_60">60 days</string>
+  <string name="days_30">30 days</string>
+  <string name="days_7">7 days</string>
+  <string name="day_1">1 day</string>
+
+  <array name="notify_radio_options">
+    <item>Weekly</item>
+    <item>Daily</item>
+    <item>Default</item>
+  </array>
 </resources>

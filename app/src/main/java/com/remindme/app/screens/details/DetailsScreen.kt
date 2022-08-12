@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.remindme.app.models.ItemDetails
 import com.remindme.app.ui.component.NotifyRadioGroupOptions
 import com.remindme.app.ui.component.RemindBeforeCheckboxGroup
 import com.remindme.app.ui.theme.Grey300
@@ -54,21 +55,13 @@ import com.remindme.app.ui.theme.Grey500
 import com.remindme.app.ui.theme.Grey700
 import com.remindme.app.ui.theme.Orange700
 import com.remindme.app.ui.theme.RemindMeTheme
-import java.util.*
-
-data class ItemDetails(
-    val title: String,
-    val description: String = "",
-    val expiry: Date? = null,
-    val purchasedOn: Date? = null
-)
 
 @Composable
 fun DetailsScreen(navController: NavController, itemDetails: ItemDetails? = null) {
     RemindMeTheme {
         Surface {
             Column {
-                AppTopBar("Dark Soy Sauce")
+                AppTopBar(navController, "Dark Soy Sauce")
                 Content(itemDetails)
             }
         }
@@ -76,13 +69,15 @@ fun DetailsScreen(navController: NavController, itemDetails: ItemDetails? = null
 }
 
 @Composable
-private fun AppTopBar(title: String) {
+private fun AppTopBar(navController: NavController, title: String) {
     TopAppBar(
         elevation = 5.dp,
         title = { Text(title) },
         backgroundColor = MaterialTheme.colors.primary,
         navigationIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                navController.navigateUp()
+            }) {
                 Icon(Icons.Filled.ArrowBack, null)
             }
         },

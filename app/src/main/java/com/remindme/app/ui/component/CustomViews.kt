@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -38,6 +37,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -139,14 +140,14 @@ fun DatePickerView(label: String) {
 fun RemindBeforeCheckboxGroup(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(top = 10.dp)) {
         Row {
-            CheckboxWithLabel(label = "60 days")
+            CheckboxWithLabel(label = stringResource(R.string.days_60))
             Spacer(Modifier.size(width = 50.dp, height = 0.dp))
-            CheckboxWithLabel(label = "7 days")
+            CheckboxWithLabel(label = stringResource(R.string.days_7))
         }
         Row {
-            CheckboxWithLabel(label = "30 days")
+            CheckboxWithLabel(label = stringResource(R.string.days_30))
             Spacer(Modifier.size(width = 50.dp, height = 0.dp))
-            CheckboxWithLabel(label = "1 day")
+            CheckboxWithLabel(label = stringResource(R.string.day_1))
         }
     }
 }
@@ -154,7 +155,7 @@ fun RemindBeforeCheckboxGroup(modifier: Modifier = Modifier) {
 @Composable
 fun NotifyRadioGroupOptions(
     modifier: Modifier = Modifier,
-    radioOptions: List<String> = listOf("Weekly", "Daily", "Default")
+    radioOptions: Array<String> = stringArrayResource(id = R.array.notify_radio_options)
 ) {
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
     Row(
@@ -170,7 +171,7 @@ fun NotifyRadioGroupOptions(
                         onClick = { onOptionSelected(text) },
                         role = Role.RadioButton
                     )
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
