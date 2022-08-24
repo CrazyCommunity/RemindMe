@@ -56,7 +56,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun TimelineListGroupView(list: List<Reminder>, timelineState: TimelineState) {
+fun TimelineListGroupView(list: List<Reminder>, timelineState: TimelineState, onItemCLick: () -> Unit) {
   RemindMeTheme {
     Surface {
       ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
@@ -158,7 +158,7 @@ fun TimelineListGroupView(list: List<Reminder>, timelineState: TimelineState) {
                 }
               }
             ) {
-              ReminderItemView(item)
+              ReminderItemView(item, onItemCLick)
             }
           }
         }
@@ -204,7 +204,8 @@ private fun TimelineListGroupViewPreview() {
           emptyList(), Reminder.Notify.Default
         )
       )
-    ), TimelineState.EXPIRED
+    ), TimelineState.EXPIRED,
+    {}
   )
 }
 

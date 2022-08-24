@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -36,16 +37,18 @@ import com.remindme.app.ui.theme.Grey700
 import com.remindme.app.ui.theme.Orange700
 import com.remindme.app.ui.theme.RemindMeTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ReminderItemView(reminder: Reminder? = null) {
+fun ReminderItemView(reminder: Reminder? = null, onItemCLick: () -> Unit) {
     RemindMeTheme {
         Surface {
             Card(
                 shape = RoundedCornerShape(5.dp),
                 elevation = 5.dp,
                 modifier = Modifier
-                  .fillMaxWidth()
-                  .padding(5.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                onClick = onItemCLick
             ) {
                 ConstraintLayout(
                     modifier = Modifier
@@ -73,10 +76,10 @@ fun ReminderItemView(reminder: Reminder? = null) {
                     )
 
                     Spacer(modifier = Modifier
-                      .size(4.dp)
-                      .constrainAs(space) {
-                        top.linkTo(notes.bottom)
-                      })
+                        .size(4.dp)
+                        .constrainAs(space) {
+                            top.linkTo(notes.bottom)
+                        })
 
                     Text(
                         text = "Purchase date: 20-02-2022",
@@ -109,5 +112,5 @@ fun ReminderItemView(reminder: Reminder? = null) {
 @Composable
 @Preview
 private fun ReminderItemViewPreview() {
-    ReminderItemView()
+    ReminderItemView(onItemCLick = {})
 }

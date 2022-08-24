@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package com.remindme.app.ui.theme
+package com.remindme.app.models
 
-import androidx.compose.ui.graphics.Color
+import java.util.*
 
-val Teal700 = Color(0xFF018786)
-val Teal100 = Color(0x1A018786)
-val Red700 = Color(0xFFEC4F4F)
-val Grey700 = Color(0xFF6F6F6F)
-val Grey500 = Color(0xFFA2A1A1)
-val Grey300 = Color(0xFFCECDCD)
-val Orange700 = Color(0xFFFF7949)
-val Yellow700 = Color(0xFFFFC452)
-val Green700 = Color(0xFF0E8421)
-val Blue700 = Color(0xFF638DF9)
-val White700 = Color(0xFFFFFFFF)
+data class ItemDetails(
+    val title: String,
+    val description: String = "",
+    val expiry: Date? = null,
+    val purchasedOn: Date? = null
+)
