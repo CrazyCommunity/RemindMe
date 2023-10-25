@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 @Composable
 fun DrawerView() {
     val language = listOf("English ", "Hindi", "Arabic")
-    val category = listOf("Cloth", "electronics", "fashion", "Food")
     LazyColumn {
         item {
             DrawerHeader(title = "ravish.raj@gmail.com")

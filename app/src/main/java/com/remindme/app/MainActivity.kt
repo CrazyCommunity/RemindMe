@@ -22,6 +22,8 @@ import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.remindme.app.navigation.AppNavigation
 import com.remindme.app.screens.splash.SplashViewAction
 import com.remindme.app.screens.splash.SplashViewModel
@@ -35,7 +37,12 @@ class MainActivity : ComponentActivity() {
     private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        splashScreen.setKeepOnScreenCondition {
+            viewModel.viewState.value is SplashViewState.LoadingComplete
+        }
         setContent {
             RemindMeTheme {
                 AppNavigation()

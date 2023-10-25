@@ -28,8 +28,8 @@ fun NavigateToLoginScreen(navController: NavController) {
 }
 
 @Composable
-fun NavigateToTimelineScreen(navController: NavController) {
-    ShowTimelineScreen(navController)
+fun NavigateToTimelineScreen() {
+    ShowTimelineScreen()
 }
 
 @Composable

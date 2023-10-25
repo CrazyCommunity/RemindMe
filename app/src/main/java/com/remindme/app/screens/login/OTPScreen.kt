@@ -60,7 +60,10 @@ fun ShowOTPScreen(navController: NavController) {
                     },
                     Modifier
                         .fillMaxWidth()
-                        .padding(start = 48.dp, end = 48.dp),
+                        .padding(
+                            start = 48.dp,
+                            end = 48.dp
+                        ),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color.Black,
                         contentColor = Color.White

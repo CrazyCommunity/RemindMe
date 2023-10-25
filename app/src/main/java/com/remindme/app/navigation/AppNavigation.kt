@@ -37,7 +37,7 @@ fun AppNavigation() {
             NavigationToEnterOTPScreen(navController = navController)
         }
         composable(route = Navigation.Routes.TIMELINE) {
-            NavigateToTimelineScreen(navController = navController)
+            NavigateToTimelineScreen()
         }
     }
 }
