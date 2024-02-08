@@ -22,6 +22,8 @@ import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.remindme.app.navigation.AppNavigation
 import com.remindme.app.screens.splash.SplashViewAction
 import com.remindme.app.screens.splash.SplashViewModel
@@ -32,34 +34,39 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-  private val viewModel: SplashViewModel by viewModels()
+    private val viewModel: SplashViewModel by viewModels()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      RemindMeTheme {
-        AppNavigation()
-      }
-    }
-    handleSplashScreenTask()
-  }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+        super.onCreate(savedInstanceState)
 
-  private fun handleSplashScreenTask() {
-
-    val content: View = findViewById(android.R.id.content)
-    viewModel.applyAction(SplashViewAction.Launch)
-
-    content.viewTreeObserver.addOnPreDrawListener(
-      object : ViewTreeObserver.OnPreDrawListener {
-        override fun onPreDraw(): Boolean {
-          return if (viewModel.viewState.value is SplashViewState.LoadingComplete) {
-            content.viewTreeObserver.removeOnPreDrawListener(this)
-            true
-          } else {
-            false
-          }
+        splashScreen.setKeepOnScreenCondition {
+            viewModel.viewState.value is SplashViewState.LoadingComplete
         }
-      }
-    )
-  }
+        setContent {
+            RemindMeTheme {
+                AppNavigation()
+            }
+        }
+        handleSplashScreenTask()
+    }
+
+    private fun handleSplashScreenTask() {
+
+        val content: View = findViewById(android.R.id.content)
+        viewModel.applyAction(SplashViewAction.Launch)
+
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    return if (viewModel.viewState.value is SplashViewState.LoadingComplete) {
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+        )
+    }
 }
