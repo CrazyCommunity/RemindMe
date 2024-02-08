@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 CrazyCommunity
+ * Copyright 2024 CrazyCommunity
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.remindme.app
+package com.remindme.app.screens.timeline
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-@HiltAndroidApp
-class RemindMeApp: Application()
+@HiltViewModel
+class TimelineViewModel @Inject constructor(): ViewModel()
